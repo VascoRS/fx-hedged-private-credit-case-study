@@ -10,22 +10,27 @@
     - Global Variables
     - Data Loader
     - FX Simulator
+    - Notebook
 
 ## Saturday 11th Jan. ##
 - Code Session 2
     - Performance Metrics
     - Risk Metrics
+    - Notebook
 
 ## Thursday 15th Jan. ##
 - Code Session 3
     - FX Hedging Forwards
     - FX Hedging Options
+    - Notebook
 
 ## Friday 16th Jan. ##
 - Code Sesion 4
-    - Main Script
     - FX Hedging Options
+    - Notebook
     
 ## Saturday 17th Jan. ##
-- Report
+- Code Session 5:
+    - Notebook
+- REPORT.md
 - README.md
