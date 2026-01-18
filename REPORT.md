@@ -1,5 +1,5 @@
 ## 1. Problem Statement and Quantitative Formulation
-____
+
 ##### 1.1 Objective of the Exercise
 The aim of this exercise isn't to construct a fully realistic private credit or FX trading system. It serves to demonstrate how to translate a loosely defined business requirement into quantitative concepts. This includes:
 
@@ -26,8 +26,8 @@ We'll be assuming the position of a private credit fund manager, with a USD-deno
 ### 1.3 Mathematical Framing and Problem Formulation
 We define:
 
- - $\{CF_i^{EUR}\}_{i=1}^N$ as the set of deterministic EUR cashflows,
- - and $\{T_i\}_{i=1}^N$ their corresponding payment dates,
+ - $\\{CF_i^{EUR}\\}_{i=1}^N$ as the set of deterministic EUR cashflows,
+ - and $\\{T_i\\}_{i=1}^N$ their corresponding payment dates,
  - $S_t$ denote the EURUSD spot rate (USD per unit of EUR),
  - $t_0$ the analysis (valuation) date.
 
@@ -46,7 +46,7 @@ The problem is to:
     - impact on upside potential.
 
 ## 2. Performance Metrics
-___
+
 
 ### 2.1 Metric Selection
 The investment profile portraid the traits of a bullet-loan where an upforont capital outlflow is followed by periodic interest payments and concluded with a final principal + interest.
@@ -117,7 +117,7 @@ $$MOIC = \frac{\sum CF_i^{USD}}{CF_0^{USD}}$$
  - IRR falls below zero if discounted cash inflows fail to recuperate initial cash outflow.
 
 ## 3. Modelling Framework
-___
+
 
 ### 3.1 FX Spot Rate Model
 
@@ -133,7 +133,7 @@ where:
 
 The exact solution to the SDE is:
 
-$$S_t = S_0 \; \mathrm{exp} \left( - \frac{1}{2} \sigma^{2} t + \sigma W_{t} \right)$$
+$$S_t = S_0  \mathrm{exp} \left( - \frac{1}{2} \sigma^{2} t + \sigma W_{t} \right)$$
 
 ##### <u>__Choice of Drift__</u>
 
@@ -176,7 +176,7 @@ This ensured that the calibrated volatility is consistend with the simulation ti
 
 FX forward rates are computed using covered interest parity (CIP):
 
-$$ F \left(T\right) = S_{0} \; \mathrm{exp} \left( \left( r_{USD} - r_{EUR} \right) T \right) $$
+$$ F \left(T\right) = S_{0}   \mathrm{exp} \left( \left( r_{USD} - r_{EUR} \right) T \right) $$
 
 where:
 
@@ -267,7 +267,7 @@ In implementation:
 This ensures correct cashflow timing and economic consistency.
 
 ## 4. Risk Metrics
-___
+
 Quantifying the FX risk is done via distributional risk measures computed across the Monte Carlo paths.
 For each performance metric:
 
@@ -285,7 +285,7 @@ Additionally:
 These metrics, implemented in the `metrics.risk.py` module, provide the link between the FX uncertainty and the investment outcomes. And allow for the direct comparison across strategies.
 
 ## 5. Hedging Strategies
-___
+
 Given the constraint and the nature of the exercise, focuse was only given to the canonical hedging strategies:
  - FX Forwards 
  - FX Options
@@ -316,9 +316,7 @@ $$
 The forward hedge payoff is:
 
 $$
-\text{Hedge}_i
-=
-CF_i^{\text{EUR}} \cdot \left( F(T_i) - S_{T_i} \right)
+\mathrm{Hedge}_i = CF_i^{\text{EUR}} \cdot \left( F(T_i) - S_{T_i} \right)
 $$
 
 Resulting inthe fully hedged USD cashflows:
@@ -363,7 +361,7 @@ The option hedge consists of purchasing:
 
 The option payoff per cashflow is:
 
-$$ \text{Payoff}_i = CF_i^{\text{EUR}} \cdot \max\!\left( K_i - S_{T_i},\, 0 \right) $$
+$$ \text{Payoff}_i = CF_i^{\text{EUR}} \cdot \max   \left( K_i - S_{T_i},  0 \right) $$
 
 where $K_i = F(T_i)$.
 
@@ -376,8 +374,8 @@ with the option premium recorded as an intial USD outflow.
 $$
 \begin{aligned}
 CF_i^{\text{USD, hedged}}
-&= CF_i^{\text{EUR}} \cdot S_{T_i} + CF_i^{\text{EUR}} \cdot \max\!\left( F(T_i) - S_{T_i},\, 0 \right) \\
-&= CF_i^{\text{EUR}} \cdot \max\!\left( S_{T_i},\, F(T_i) \right).
+&= CF_i^{\text{EUR}} \cdot S_{T_i} + CF_i^{\text{EUR}} \cdot \max   \left( F(T_i) - S_{T_i},  0 \right) \\
+&= CF_i^{\text{EUR}} \cdot \max  \left( S_{T_i},   F(T_i) \right).
 \end{aligned}
 $$
 
@@ -397,7 +395,7 @@ $$
  - Lower Expected return than forwards
 
 ## 6. Parameter Choices and Risk Alignment
-___
+
 
 The two hedging strategies considered in this analysis are designed to align with distinc investor objectives and risk profiles. Rather than optimising a single criterion, the framework highlights the trad-offs between certainty, cost and convexity.
 
@@ -411,11 +409,12 @@ The appropriate strategy, therefore, depends on the investor preferences regardi
  - Demand for convexity
 
 ## 7. Assumptions, Simplifications, and Limitations
-___
+
 
 The analaysis relies on a number of explicit assumptions that were deliberate design choises.
 
 ##### <u>__Hedging Structure__</u>
+
  - **100% hedging of EUR inflows**
 
     Each positive EUR cashflow is hedged in full. Partial hedging or dynamic hedge ratios are not considered. Hedging ratio
@@ -430,6 +429,7 @@ The analaysis relies on a number of explicit assumptions that were deliberate de
     The inital outflow of, what appears a loan principal, isn't hedged. The focus of analysis is on protecting future EUR inflows rather that funding FX risk at inception.
 
 ##### <u>__Costs and Market Frictions__</u>
+
 - **Transaction costs**
 
     No transaction costs are modelled for the forwards. For options, the premium represents the sole explicit cost.
